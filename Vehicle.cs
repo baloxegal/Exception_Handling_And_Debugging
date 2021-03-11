@@ -1,19 +1,7 @@
 ﻿using System;
 
 namespace Vehicles_Routs
-{    
-    interface IMoveable
-    {
-        void MoveRight();
-        void MoveLeft();
-        void MoveForward();
-        void MoveBack();        
-    }
-    interface IFlyable : IMoveable
-    {
-        void MoveUp();
-        void MoveDown();
-    }
+{
     abstract class Vehicle
     {
         public abstract void Rout(int whatCarry);
@@ -25,19 +13,21 @@ namespace Vehicles_Routs
             try
             {
                 if (seatPlaces <= 0 || seatPlaces > 100)
-                    throw new ArithmeticException("Quantity of passangers can't be more than 100 or less or equal than 0");                
+                    throw new ArgumentOutOfRangeException("Quantity of passangers can't be more than 100 or less or equal than 0");
+                else
+                    SeatPlaces = seatPlaces;                
             }
-            catch (ArithmeticException a)
+            catch (ArgumentOutOfRangeException a)
             {
-                Console.WriteLine($"Error: {a.Data}; {a.Message}");
+                Console.WriteLine($"Error: {a}");
             }
             finally
             {
                 if (seatPlaces <= 0 || seatPlaces > 100)
+                {
                     SeatPlaces = 1;
-                else
-                    SeatPlaces = seatPlaces;
-                Console.WriteLine(SeatPlaces);
+                    Console.WriteLine(SeatPlaces);
+                }               
             }           
         }
         public int SeatPlaces
@@ -112,13 +102,6 @@ namespace Vehicles_Routs
         public void MoveRight()
         {
             //some code
-        }
-    }
-    class Rout
-    {
-        public static void GetRout(Vehicle vehicle, int whatCarry)
-        {
-            vehicle.Rout(whatCarry);
         }
     }
 }
